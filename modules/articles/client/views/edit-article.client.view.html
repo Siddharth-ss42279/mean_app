@@ -1,0 +1,97 @@
+<section ng-controller="ArticlesUpdateController as articleUpCtrl" >
+  <div class="modal-header">
+            <h3 class="modal-title">update {{article.firstName}} {{article.surName}}</h3>
+        </div>
+        <div class="modal-body">
+    <form name = "updateCustomerForm">
+      <fieldset>
+
+
+         
+         <div class="row">
+           <div class="col-sm-6 text-center">
+            <i class="glyphicon glyphicon-user cust-profile" ng-class="{'text-primary':article.referred, 'text-danger':!article.referred}"></i>
+           </div>
+
+           <div class="col-sm-6">
+            <div class="form-group" show-errors>
+              <label for="firstName">Name</label>
+
+                <div class="controls">
+                  <input name="firstName" type="text" data-ng-model="article.firstName" id="firstName" class="form-control" placeholder="name" required>
+
+                </div> 
+                  
+            </div>
+
+            <div class="form-group" show-errors>
+              <label for="surName">surname</label>
+                  <input name="surName" type="text" data-ng-model="article.surName" id="surName" class="form-control" placeholder="surname" required>
+            </div>
+
+            <div class="form-group" show-errors>
+              <label for="suburb">suburb</label>
+                  <input name="suburb" type="text" data-ng-model="article.suburb" id="suburb" class="form-control" placeholder="suburb" required>
+            </div>
+
+            <div class="form-group" show-errors>
+              <label for="country">country</label>
+                  <input name="country" type="text" data-ng-model="article.country" id="country" class="form-control" placeholder="country" required>
+            </div>
+
+
+
+          </div>           
+         </div>
+
+         <div class="row">
+           <div class="col-sm-6 col-sm-push-6">
+            <div class="form-group" show-errors>
+              <label for="phone">phone</label>
+                  <input name="phone" type="text" data-ng-model="article.phone" id="phone" class="form-control" placeholder="phone" required>
+            </div>
+
+            <div class="form-group" show-errors>
+              <label for="email">email</label>
+                  <input name="email" type="text" data-ng-model="article.email" id="email" class="form-control" placeholder="email" required>
+            </div>
+
+           </div>
+           <div class="col-sm-6 col-sm-pull-6">
+             <div class="form-group" show-errors>
+              <label for="referred">referred</label>
+                  <input name="referred" type="checkbox" data-ng-model="article.referred" id="referred" class="form-control checkbox-left" required>
+            </div>
+
+            <div class="form-group" show-errors>
+              <label for="channel">channel</label>
+                  <input name="channel" type="text" data-ng-model="article.channel" id="channel" class="form-control" placeholder="channel" required>
+            </div>
+           </div>           
+         </div>   
+
+         <div class="row">
+           <div class="col-sm-6">
+             <div class="form-group" show-errors>
+              <label for="industry">industry</label>
+                  <input name="industry" type="text" data-ng-model="article.industry" id="industry" class="form-control" placeholder="industry" required>
+            </div>    
+
+           </div>
+                      
+        </div>
+      </fieldset>
+    </form>
+
+</div>
+        <div class="modal-footer">
+            <button class="btn btn-success btn-lg" ng-click="articleUpCtrl.update(article); ok()"  ng-disabled ="updateCustomerForm.$invalid">Update & Close</button>
+            <button class="btn btn-warning btn-lg" ng-click="cancel()">Cancel</button>
+        </div>
+  
+
+ 
+
+
+
+</section>

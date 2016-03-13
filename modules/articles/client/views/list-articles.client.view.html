@@ -1,0 +1,56 @@
+<section ng-controller="ArticlesController as articlesCtrl" >
+  <div class="page-header">
+    <h1>CUSTOMERS</h1>
+  </div>
+
+ 
+  
+  <div class="row"></div>
+        <div class="col-xs-12 col-sm-8 col-offset-2">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for..."ng-model="searchText">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Go!</button>
+                </span>
+            </div>
+
+        </div>
+        <div class="col-xs-12 col-sm-4 text-center">
+          <button type="button" class ="btn btn-success text-center">
+            <i class = "glyphicon glyphicon-user "></i> <br>
+            New Customer
+          </button>
+
+        </div>
+  </div>
+  <br>
+  <br>
+  <br>
+   <div class="list-group">
+
+  <div class="col-xs-6 col-sm-4" ng-repeat="article in articlesCtrl.articles | filter :searchText">
+      <a  ng-click="articlesCtrl.modalUpdate('lg',article)" class="list-group-item">
+      <h4 class = " cust-list"   > 
+          <i class = "glyphicon glyphicon-user "></i>
+      </h4>
+
+      
+
+      <div class ="row">
+        <div class = "text-center ">
+            <h4>{{article.firstName}} {{article.surName}}</h4>
+
+            
+                <small class="list-group-item-text text-muted">
+                  <span ng-bind="article.created | date:'medium'"></span>
+                </small>  
+        </div>
+      </div>
+      </a>
+  </div>
+   
+  </div>
+  <div class="alert alert-warning text-center" ng-if="articles.$resolved && !articles.length">
+    No articles yet, why don't you <a ui-sref="articles.create">create one</a>?
+  </div>
+</section>
