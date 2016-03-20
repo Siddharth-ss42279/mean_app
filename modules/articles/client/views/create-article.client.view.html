@@ -1,9 +1,9 @@
-<section ng-controller="ArticlesController">
-  <div class="page-header ">
-    <h1>NEW CUSTOMER</h1>
-  </div>
-  <div class="col-md-12">
-    <form name="articleForm" class="" ng-submit="create(articleForm.$valid)" novalidate>
+<section ng-controller="ArticlesCreateController as articleCtrl" >
+  <div class="modal-header">
+            <h3 class="modal-title">NEW CUSTOMER</h3>
+        </div>
+        <div class="modal-body">
+    <form name = "createCustomerForm">
       <fieldset>
 
        <alert type="danger" ng-show="error" class="text-center text-danger">
@@ -12,28 +12,28 @@
          
          <div class="row">
            <div class="col-sm-6 text-center">
-            <i class="glyphicon glyphicon-user cust-profile" ng-class="{'text-primary':referred, 'text-danger':!referred}"></i>
+            <i class="glyphicon glyphicon-user cust-profile" ng-class="{'text-primary':articleCtrl.referred, 'text-pink':!articleCtrl.referred}"></i>
            </div>
 
            <div class="col-sm-6">
             <div class="form-group" show-errors>
               <label for="firstName">Name</label>
-                  <input name="firstName" type="text" ng-model="firstName" id="firstName" class="form-control" placeholder="name" required>
+                  <input name="firstName" type="text" ng-model="articleCtrl.firstName" id="firstName" class="form-control" placeholder="name" required>
             </div>
 
             <div class="form-group" show-errors>
               <label for="surName">surname</label>
-                  <input name="surName" type="text" ng-model="surName" id="surName" class="form-control" placeholder="surname" required>
+                  <input name="surName" type="text" ng-model="articleCtrl.surName" id="surName" class="form-control" placeholder="surname" required>
             </div>
 
             <div class="form-group" show-errors>
               <label for="suburb">suburb</label>
-                  <input name="suburb" type="text" ng-model="suburb" id="suburb" class="form-control" placeholder="suburb" required>
+                  <input name="suburb" type="text" ng-model="articleCtrl.suburb" id="suburb" class="form-control" placeholder="suburb" required>
             </div>
 
             <div class="form-group" show-errors>
               <label for="country">country</label>
-                  <input name="country" type="text" ng-model="country" id="country" class="form-control" placeholder="country" required>
+                  <input name="country" type="text" ng-model="articleCtrl.country" id="country" class="form-control" placeholder="country" required>
             </div>
 
 
@@ -45,24 +45,24 @@
            <div class="col-sm-6 col-sm-push-6">
             <div class="form-group" show-errors>
               <label for="phone">phone</label>
-                  <input name="phone" type="text" ng-model="phone" id="phone" class="form-control" placeholder="phone" required>
+                  <input name="phone" type="text" ng-model="articleCtrl.phone" id="phone" class="form-control" placeholder="phone" required>
             </div>
 
             <div class="form-group" show-errors>
               <label for="email">email</label>
-                  <input name="email" type="text" ng-model="email" id="email" class="form-control" placeholder="email" required>
+                  <input name="email" type="text" ng-model="articleCtrl.email" id="email" class="form-control" placeholder="email" required>
             </div>
 
            </div>
            <div class="col-sm-6 col-sm-pull-6">
              <div class="form-group" show-errors>
               <label for="referred">referred</label>
-                  <input name="referred" type="checkbox" ng-model="referred" id="referred" class="form-control checkbox-left" required>
+                  <input name="referred" type="checkbox" ng-model="articleCtrl.referred" id="referred" class="form-control checkbox-left">
             </div>
 
             <div class="form-group" show-errors>
               <label for="channel">channel</label>
-                  <input name="channel" type="text" ng-model="channel" id="channel" class="form-control" placeholder="channel" required>
+                  <input name="channel" type="text" ng-model="articleCtrl.channel" id="channel" class="form-control" placeholder="channel" required>
             </div>
            </div>           
          </div>   
@@ -71,15 +71,10 @@
            <div class="col-sm-6">
              <div class="form-group" show-errors>
               <label for="industry">industry</label>
-                  <input name="industry" type="text" ng-model="industry" id="industry" class="form-control" placeholder="industry" required>
+                  <input name="industry" type="text" ng-model="articleCtrl.industry" id="industry" class="form-control" placeholder="industry" required>
             </div>    
 
-           </div>
-           <div class="col-sm-6">
-             <div class="form-group">
-          <button type="submit" class="btn btn-lg btn-success">Save & Close</button>
-        </div>
-           </div>           
+           </div>       
          </div>               
 
 
@@ -92,5 +87,16 @@
         </div>
       </fieldset>
     </form>
-  </div>
+
+</div>
+        <div class="modal-footer">
+            <button class="btn btn-success btn-lg" ng-click="articleCtrl.create(); ok()"  ng-disabled ="createCustomerForm.$invalid">save & Close</button>
+            <button class="btn btn-warning btn-lg" ng-click="cancel()">Cancel</button>
+        </div>
+  
+
+ 
+
+
+
 </section>

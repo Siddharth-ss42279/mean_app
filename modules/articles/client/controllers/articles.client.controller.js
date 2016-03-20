@@ -9,6 +9,38 @@ customersApp.controller('ArticlesController', ['$scope', '$stateParams', 'Authen
 
           // Find a list of Articles
     this.articles = Articles.query();
+
+//open a modal window  to create single customer code
+    
+    this.modalCreate = function (size) {
+      
+      var modalInstance = $modal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: 'modules/articles/client/views/create-article.client.view.html',
+        controller: function ($scope, $modalInstance){
+
+
+
+          $scope.ok = function () {
+            //if(this.updateCustomerForm.$valid)
+            $modalInstance.close();
+          };
+
+          $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+          };
+        },
+        size: size
+      });
+
+      modalInstance.result.then(function (selectedItem) {
+      }, function () {
+        $log.info('Modal dismissed at: ' + new Date());
+      });
+    };    
+
+
+
 //open a modal window  to updatee single customer code
     
     this.modalUpdate = function (size,selectedArticle) {
@@ -20,7 +52,7 @@ customersApp.controller('ArticlesController', ['$scope', '$stateParams', 'Authen
           $scope.article = article;
 
           $scope.ok = function () {
-            // if(updateCustomerForm.$valid)
+            //if(this.updateCustomerForm.$valid)
             $modalInstance.close($scope.article);
           };
 
@@ -43,12 +75,64 @@ customersApp.controller('ArticlesController', ['$scope', '$stateParams', 'Authen
       });
     };    
 
+        // Remove existing Article
+    this.remove = function (article) {
+      if (article) {
+        article.$remove();
+
+        for (var i in this.articles) {
+          if (this.articles[i] === article) {
+            this.articles.splice(i, 1);
+          }
+        }
+      } else {
+        this.article.$remove(function () {
+
+        });
+      }
+    };
+
+
   }
 
 ]);
 
 customersApp.controller('ArticlesCreateController', ['$scope', 'Articles',
   function ($scope, Articles) {
+
+ //Create new Article
+    this.create = function (isValid) {
+      // Create new Article object
+      var article = new Articles({
+        firstName: this.firstName,
+        surName: this.surName,
+        suburb: this.suburb,
+        country: this.country,
+        industry: this.industry,
+        email: this.email,
+        phone: this.phone,
+        referred: this.referred,
+        channel: this.channel
+      });
+
+      // Redirect after save
+      article.$save(function (response) {
+
+        // Clear form fields
+        $scope.firstName = '';
+        $scope.surName = '';
+        $scope.suburb = '';
+        $scope.country = '';
+        $scope.industry = '';
+        $scope.email = '';
+        $scope.phone = '';
+        $scope.referred = '';
+        $scope.channel = '';
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
+
 
   }
 ]);
@@ -78,47 +162,19 @@ customersApp.controller('ArticlesUpdateController', ['$scope', 'Articles',
     
 
 
-  // Create new Article
-    //  $scope.create = function (isValid) {
-    //   $scope.error = null;
+customersApp.directive('customerList', [function(){
+  return {
+    restrict :'E',
+    transclude: true,
+    templateUrl: 'modules/articles/client/views/customer-list-template.html',
+    link: function(scope, element,attrs){
 
-    //   if (!isValid) {
-    //     $scope.$broadcast('show-errors-check-validity', 'articleForm');
+    }
+  };
 
-    //     return false;
-    //   }
+}]);
 
-    //   // Create new Article object
-    //   var article = new Articles({
-    //     firstName: this.firstName,
-    //     surName: this.surName,
-    //     suburb: this.suburb,
-    //     country: this.country,
-    //     industry: this.industry,
-    //     email: this.email,
-    //     phone: this.phone,
-    //     referred: this.referred,
-    //     channel: this.channel
-    //   });
-
-    //   // Redirect after save
-    //   article.$save(function (response) {
-    //     $location.path('articles/' + response._id);
-
-    //     // Clear form fields
-    //     $scope.firstName = '';
-    //     $scope.surName = '';
-    //     $scope.suburb = '';
-    //     $scope.country = '';
-    //     $scope.industry = '';
-    //     $scope.email = '';
-    //     $scope.phone = '';
-    //     $scope.referred = '';
-    //     $scope.channel = '';
-    //   }, function (errorResponse) {
-    //     $scope.error = errorResponse.data.message;
-    //   });
-    // };
+ 
 
     // // Remove existing Article
     // $scope.remove = function (article) {
@@ -137,30 +193,4 @@ customersApp.controller('ArticlesUpdateController', ['$scope', 'Articles',
     //   }
     // };
 
-    // // Update existing Article
-    // $scope.update = function (isValid) {
-    //   $scope.error = null;
 
-    //   if (!isValid) {
-    //     $scope.$broadcast('show-errors-check-validity', 'articleForm');
-
-    //     return false;
-    //   }
-
-    //   var article = $scope.article;
-
-    //   article.$update(function () {
-    //     $location.path('articles/' + article._id);
-    //   }, function (errorResponse) {
-    //     $scope.error = errorResponse.data.message;
-    //   });
-    // };
-
-    
-
-    // // Find existing Article
-    // $scope.findOne = function () {
-    //   $scope.article = Articles.get({
-    //     articleId: $stateParams.articleId
-    //   });
-    // };
